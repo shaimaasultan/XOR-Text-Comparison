@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- For PNG format -->
+  <link rel="icon" type="image/png" href="imge/xor-icon.png">
+  <title>XOR Text Comparison</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="top-bar">
+<h2>XOR Text Comparison</h2> 
+<span class="info-tooltip" tabindex="0" aria-label="Help: How to use this tool">❓
+  <span class="info-tooltip-text" role="tooltip">
+    <b>How to use:</b><br>
+    - Paste or type text in both boxes.<br>
+    - Use Compare to highlight differences.<br>
+    - Merge buttons combine texts with color highlights.<br>
+    - Use toggles and exclude to refine comparison.<br>
+    - Keyboard shortcuts: Alt+1/2 to focus boxes, Alt+C/M/O/U/H for actions.
+  </span>
+</span>
+</div>
+
+<div class="top-bar">
+  <div id="modeIndicator" class="mode-indicator">
+  <span class="mode-label">Mode:</span>
+  <span id="currentMode" class="mode-value">Idle</span>
+</div><!-- ...existing code... -->
+
+<div class="button-row">
+  <button id="toggleTextBtn" onclick="toggleText()">Show Text</button>
+  <button onclick="toggleAnalysis()">📊 Show/Hide Analytics</button>
+  <button onclick="clearHighlights()">Clear Highlights</button>
+  <button onclick="resetPage()" class="export-btn">
+    <span style="vertical-align:middle;">🔄</span> Reset Page
+  </button>
+</div>
+</div>
+<div class="search-options">
+  <div class="search-header">
+    <h6>🔎 Search In <select id="searchBox"  >
+      <option value="original">Original Text</option>
+      <option value="modified">Modified Text</option>
+    </select></h6>
+  </div>
+  <div class="search-inline">
+    <input type="text" id="searchTerm" placeholder="Enter terms separated by commas">
+    
+    <label><input type="checkbox" id="exactMatch"> Exact match</label>
+    <label><input type="checkbox" id="caseSensitive"> Case sensitive</label>
+    <button onclick="highlightText()">Highlight 🔴</button>
+  </div>
+</div>
+
+<div class="legend enhanced-legend legend-inline">
+
+  <span><span class="gold legend-sample"></span> <b>Gold:</b> Only in Original Text</span>
+  <span><span class="blue legend-sample"></span> <b>Light Blue:</b> Only in Modified Text</span>
+  <span><span class="merged legend-sample"></span> <b>Green:</b> Present in Both Texts</span>
+</div>
+
+<div class="toggles-exclude-row">
+  
+  <div class="toggles">
+    <button onclick="compareTexts()">🧮 Compare</button>
+
+    <!-- Your toggle controls here, e.g.: -->
+    <label><input type="checkbox" id="ignoreCase"> Ignore Case</label>
+    <label><input type="checkbox" id="ignorePunctuation"> Ignore Punctuation</label>
+    <label><input type="checkbox" id="compareSentences"> Compare Sentences</label>
+    <div class="exclude-box">
+    <label for="excludeChars">Exclude Chars:</label>
+    <input type="text" id="excludeChars" placeholder="e.g. ,.;:" />
+  </div>
+  </div>
+  
+</div>
+
+<!-- ...existing code... -->
+
+<div id="analysisBox" class="analysis-box"></div>
+
+<!-- ...existing code... -->
+
+<div id="textContainer" class="container">
+  <div class="text-box-group">
+    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
+      <button onclick="exportText('text1')" aria-label="Export Original Text" class="export-btn" tabindex="0">
+        <span style="vertical-align:middle;">💾</span> Export Original Text
+        <span class="export-tooltip" role="tooltip">Text must exist to export.</span>
+      </button>
+      <button onclick="mergeOriginalToModified()" aria-label="Merge Original → Modified" class="export-btn" tabindex="0">
+        <span style="vertical-align:middle;">🔄</span> Merge Original → Modified
+      </button>
+      <button id="undoMergeOriginalBtn" onclick="undoMerge()" class="export-btn" >
+        <span style="vertical-align:middle;">↩️</span> Undo Merge
+      </button>
+    </div>
+    <div id="text1" class="text-box" contenteditable="true" aria-label="Original Text" tabindex="0" data-placeholder="Paste or type your original text here..."></div>
+  </div>
+  <div class="text-box-group">
+    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
+      <button onclick="exportText('text2')" aria-label="Export Modified Text" class="export-btn" tabindex="0">
+        <span style="vertical-align:middle;">💾</span> Export Modified Text
+        <span class="export-tooltip" role="tooltip">Text must exist to export.</span>
+      </button>
+      <button onclick="mergeModifiedToOriginal()" aria-label="Merge Modified → Original" class="export-btn" tabindex="0">
+        <span style="vertical-align:middle;">🔁</span> Merge Modified → Original
+      </button>
+      <button id="undoMergeModifiedBtn" onclick="undoMerge()" class="export-btn" >
+        <span style="vertical-align:middle;">↩️</span> Undo Merge
+      </button>
+    </div>
+    <div id="text2" class="text-box" contenteditable="true" aria-label="Modified Text" tabindex="0" data-placeholder="Paste or type your modified text here..."></div>
+  </div>
+</div>
+
+<!-- Add this just before your script tag -->
+<div id="loadingSpinner" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;">
+  <div style="padding:20px;background:#fff;border-radius:8px;box-shadow:0 2px 8px #aaa;">
+    <span>Processing...</span>
+  </div>
+</div>
+
+<!-- ...existing code... -->
+<script src="script.js"></script>
+</body>
+</html>
