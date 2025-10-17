@@ -16,7 +16,7 @@ Search terms in the original text with options for exact match and case sensitiv
 - 🔴 Gold: Only in Original Text  
 - 🔵 Light Blue: Only in Modified Text  
 - 🟢 Green: Present in Both Texts
-
+<image src="Screenshot 2025-10-17 142355.png"/>
 🧮 **Comparison Options**  
 Toggle case sensitivity, punctuation ignoring, and sentence-based comparison. Exclude specific characters for cleaner analysis.
 
